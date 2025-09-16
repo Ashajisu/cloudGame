@@ -6,14 +6,6 @@
     <title> Cloud Game</title>
 
     <style>
-        @media (max-width: 768px) {
-            :root {
-                --num-rows: 5;
-                --num-cols: 8;
-                --board-width: 300px;
-            }
-        }
-
         :root {
             --color-text: #173e0b;
             --color-bg: #b2ca94;
@@ -40,6 +32,14 @@
                     ) * 1
             );
             --padding : 10px;
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --num-rows: 5;
+                --num-cols: 8;
+                --board-width: 300px;
+            }
         }
 
         * {
