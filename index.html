@@ -223,12 +223,28 @@
             font-weight:    bold;
             padding: 8px 16px;
         }
+
+        #instructionBtn {
+            border: none;
+            border-radius: 3px;
+        }
     </style>
 </head>
 <body>
 <!-- https://www.youtube.com/watch?v=QuoVDPM76wI 사과게임 만들기 참고 -->
 
-    <h1> <i id="cloud-icon">☁️</i> Cloud Game </h1>
+    <h1> <i id="cloud-icon">☁️</i> Cloud Game <button id="instructionBtn" style="border: none">❓</button></h1>
+    <div id="instruction" style="display: none;">
+        <p>구름을 드래그해서 화면에서 제거하세요.</p>
+        <ul>
+            <li>START 버튼으로 게임을 시작합니다.</li>
+            <li>다시하려면 RESTART 버튼을 클릭하세요.</li>
+            <li>선택한 구름의 합이 10이 되면 없어집니다.</li>
+            <li>타이머가 채워지는 2분 동안 최대한 많은 구름을 제거하세요.</li>
+            <li>구름을 제거하면 점수가 올라갑니다.</li>
+            <li>시간이 초과하거나 구름을 모두 제거하면 게임이 종료되고 점수가 공개됩니다.</li>
+        </ul>
+    </div>
     <div id="board">
         <h3 id="finalScore"></h3>
     </div>
@@ -275,6 +291,8 @@
         const $startBtn = document.querySelector('#startBtn');
         const $progressBar = document.querySelector('#progress > div');
         const $finalScore = document.querySelector('#finalScore');
+        const $instruction = document.querySelector('#instruction');
+        const $instructionBtn = document.querySelector('#instructionBtn');
 
         // variables
         let playing = false;
@@ -284,6 +302,7 @@
         let score = 0;
         let count = 0;
         let timerId = null;
+        let how = false;
 
         console.debug("[DEBUG] initialize :", numRows, numCols, cloudSize);
         initialize();
@@ -337,6 +356,17 @@
                 'click', ()=> { gameStart() } //restart
                 // 'click', ()=> { playing? gameEnd() : gameStart() } //end + start
             );
+            $instructionBtn.addEventListener(
+                'click', ()=>{
+                    if ($instruction.style.display === 'none') {
+                        $instruction.style.display = 'block';
+                        $instructionBtn.textContent = '?';
+                    } else {
+                        $instruction.style.display = 'none';
+                        $instructionBtn.textContent = '❓';
+                    }
+                }
+            )
 
             $cloudIcon.remove();
 
