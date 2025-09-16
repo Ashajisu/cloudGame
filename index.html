@@ -397,7 +397,8 @@
                             const col = parseInt(cloudEl.dataset.col);
                             dragMove(row, col);
                         }
-                    }
+                    },
+                    { passive: false }
                 );
                 // 보드 영역 바깥에서도 dragEnd 가능하도록 document에 등록
                 document.addEventListener('touchend', () => {
