@@ -228,7 +228,7 @@
 <body>
 <!-- https://www.youtube.com/watch?v=QuoVDPM76wI 사과게임 만들기 참고 -->
 
-    <h1> <i id="cloud-icon">☁️</i> Cloud Game <p id="debug"></p></h1>
+    <h1> <i id="cloud-icon">☁️</i> Cloud Game </h1>
     <div id="board">
         <h3 id="finalScore"></h3>
     </div>
@@ -276,8 +276,6 @@
         const $progressBar = document.querySelector('#progress > div');
         const $finalScore = document.querySelector('#finalScore');
 
-        const $debug = document.querySelector('#debug');
-
         // variables
         let playing = false;
         let dragging = false;
@@ -310,20 +308,20 @@
                     if(isTouchDevice){
                         //터치 이벤트 등록
                         $cloud.addEventListener(
-                            'touchstart', (e)=> {
-                                dragBegin(e,row,col);
+                            'touchstart', ()=> {
+                                dragBegin(row,col);
                             }
                         );
                     }else{
                         //마우스 이벤트 등록
                         $cloud.addEventListener(
-                            'mousedown',(e)=>{ dragBegin(e, row, col); }
+                            'mousedown',()=>{ dragBegin(row, col); }
                         );
                         $cloud.addEventListener(
-                            'mousemove',(e)=>{ dragMove(e, row, col); }
+                            'mousemove',()=>{ dragMove(row, col); }
                         );
                         $cloud.addEventListener(
-                            'mouseup',(e)=>{ dragEnd(e); }
+                            'mouseup',()=>{ dragEnd(); }
                         );
                     }
 
@@ -356,22 +354,21 @@
                         if(cloudEl){
                             const row = parseInt(cloudEl.dataset.row);
                             const col = parseInt(cloudEl.dataset.col);
-                            $debug.innerHTML = JSON.stringify(cloudEl.dataset);
                             dragMove(e,row, col);
                         }
                     }
                 );
                 // 보드 영역 바깥에서도 dragEnd 가능하도록 document에 등록
-                document.addEventListener('touchend', (e) => {
-                    if (dragging) dragEnd(e);
+                document.addEventListener('touchend', () => {
+                    if (dragging) dragEnd();
                 });
                 // 시스템/브라우저가 터치를 강제로 취소할 때 발생
-                document.addEventListener('touchcancel', (e) => {
-                    if (dragging) dragEnd(e);
+                document.addEventListener('touchcancel', () => {
+                    if (dragging) dragEnd();
                 });
             }else {
                 //보드 영역을 벗어나면 클릭업처리로 선택을 끝냄.
-                $board.addEventListener('mouseleave', (e)=>{ dragEnd(e) });
+                $board.addEventListener('mouseleave', ()=>{ dragEnd() });
             }
 
             console.debug("[DEBUG] initialize done");
@@ -458,7 +455,7 @@
         }
 
         //드래그 시작 - 클릭
-        function dragBegin(e, row, col){
+        function dragBegin(row, col){
             if (!playing){ return; }
             dragging = true;
             begin = [row, col];
@@ -467,7 +464,7 @@
             console.debug("[DEBUG] dragBegin");
         }
         //드래그 이동 - 무브
-        function dragMove(e, row, col){
+        function dragMove(row, col){
             if (!playing || !dragging){ return; }
             end = [row, col];
 
@@ -475,7 +472,7 @@
             console.debug("[DEBUG] dragMove");
         }
         //드래그 마침 - 업
-        function dragEnd(e){
+        function dragEnd(){
             if (!playing){ return; }
             collect();
             dragging = false;
