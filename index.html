@@ -314,6 +314,7 @@
         let score = 0;
         let count = 0;
         let timerId = null;
+        let ticking = false;
 
         console.debug("[DEBUG] initialize :", numRows, numCols, cloudSize);
         initialize();
@@ -348,7 +349,15 @@
                             'mousedown',()=>{ dragBegin(row, col); }
                         );
                         $cloud.addEventListener(
-                            'mousemove',()=>{ dragMove(row, col); }
+                            'mousemove',()=>{
+                                if (!ticking) {
+                                    requestAnimationFrame(() => {
+                                        dragMove(row, col);
+                                        ticking = false;
+                                    });
+                                    ticking = true;
+                                }
+                            }
                         );
                         $cloud.addEventListener(
                             'mouseup',()=>{ dragEnd(); }
@@ -383,22 +392,25 @@
 
             if(isTouchDevice){
                 //IOS 는 보드단위로 드래그를 추적
-                $board.addEventListener(
-                    'touchmove', (e)=> {
-                        e.preventDefault(); // 스크롤 방지
+                $board.addEventListener( 'touchmove', (e)=> {
+                    e.preventDefault(); // 스크롤 방지
+                    if (!ticking) {
+                        requestAnimationFrame(() => { //애니메이션 최적화
+                            const touch = e.touches[0];
+                            const allElements = document.elementsFromPoint(touch.clientX, touch.clientY);
+                            const clouds = allElements.filter(el => el.classList.contains('cloud'));
+                            const cloudEl = clouds[0];
 
-                        const touch = e.touches[0];
-                        const allElements = document.elementsFromPoint(touch.clientX, touch.clientY);
-                        const clouds = allElements.filter(el => el.classList.contains('cloud'));
-                        const cloudEl = clouds[0];
-
-                        if(cloudEl){
-                            const row = parseInt(cloudEl.dataset.row);
-                            const col = parseInt(cloudEl.dataset.col);
-                            dragMove(row, col);
-                        }
-                    },
-                    { passive: false }
+                            if (cloudEl) {
+                                const row = parseInt(cloudEl.dataset.row);
+                                const col = parseInt(cloudEl.dataset.col);
+                                dragMove(row, col);
+                            }
+                            ticking = false;
+                        });
+                        ticking = true;
+                    }
+                    },{ passive: false }
                 );
                 // 보드 영역 바깥에서도 dragEnd 가능하도록 document에 등록
                 document.addEventListener('touchend', () => {
