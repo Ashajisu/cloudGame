@@ -270,6 +270,14 @@
     <div id="start">
         <span>☁️</span>
         <button id="startBtn"> Start </button>
+        <div id="difficulty">
+            <label>
+                <input type="radio" name="mode" id="easy" value="false" checked> Easy
+            </label>
+            <label>
+                <input type="radio" name="mode" id="hard" value="true"> Hard
+            </label>
+        </div>
     </div>
 
     <script>
@@ -296,6 +304,7 @@
         const $finalScore = document.querySelector('#finalScore');
         const $instruction = document.querySelector('#instruction');
         const $instructionBtn = document.querySelector('#instructionBtn');
+        const $radiosHard = document.querySelector('#hard');
 
         // variables
         let playing = false;
@@ -305,7 +314,6 @@
         let score = 0;
         let count = 0;
         let timerId = null;
-        let how = false;
 
         console.debug("[DEBUG] initialize :", numRows, numCols, cloudSize);
         initialize();
@@ -408,10 +416,25 @@
         }
 
         //숫자배열 생성
-        function generateNumbersMultipleOf10(size) {
+        function generateNumbersMultipleOf10(size, hardMode = false) {
             // 가중치에 따른 1~9 랜덤 숫자 생성
-            const weightedNumbers = [1,1,1,2,2,2,3,3,4,4,5,5,6,6,7,8,8,9];
-            const numbers = Array.from({ length: size }, () => weightedNumbers[Math.floor(Math.random() * weightedNumbers.length)]);
+            const weightedNumbers = [1,1,1,1,2,2,2,2,3,3,3,4,5,5,6,6,7,7,8,9];
+            let numbers = [];
+
+            if(hardMode){
+                numbers = Array.from({ length: size }, () => weightedNumbers[Math.floor(Math.random() * weightedNumbers.length)]);
+            }else{
+                // 최대 크기별 반복 후 셔플 (예: 2배 또는 8배)
+                const multiplier = size / weightedNumbers.length;
+                for (let i = 0; i < multiplier; i++) {
+                    numbers.push(...weightedNumbers);
+                }
+                for (let i = numbers.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
+                }
+            }
+
 
             // 합계 계산
             let sum = numbers.reduce((a, b) => a + b, 0);
@@ -451,7 +474,8 @@
             }
 
             //숫자 할당
-            const randomNumber = generateNumbersMultipleOf10(cloudTotalCount);
+            const mode = $radiosHard.checked;
+            const randomNumber = generateNumbersMultipleOf10(cloudTotalCount, mode);
             for(const $cloud of $clouds){
                 $cloud.querySelector('span').textContent = randomNumber.pop().toString();
             }
@@ -467,7 +491,7 @@
                 clearTimeout(timerId);
             }
             timerId = setTimeout(gameEnd, duration * 1000);
-            console.log("Cloud Game Start !")
+            console.log("Cloud Game Start !", mode? "Hard Mode" : "Easy Mode");
         }
 
         //게임 종료
