@@ -34,11 +34,11 @@
             --padding : 10px;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 853px) {
             :root {
                 --num-rows: 5;
                 --num-cols: 8;
-                --board-width: 300px;
+                --board-width: 60vw;
             }
         }
 
@@ -58,7 +58,7 @@
             gap: 15px;
         }
 
-        i{
+        img{
             font-size: var(--font-size);
             line-height: 1;
             width: 100%;
@@ -86,6 +86,7 @@
 
             * {
                 user-select: none;
+                -webkit-user-drag: none;
             }
 
             .cloud{
@@ -101,7 +102,7 @@
                     left: 45%;
 
                     font-weight: bold;
-                    font-size: calc(var(--font-size)/2.5);
+                    font-size: calc(var(--font-size)/2);
                     color: var(--color-cloud-number);
 
                     display: flex;
@@ -116,7 +117,7 @@
             }
 
             .cloud.collected {
-                i {
+                img {
                     opacity: 0;
                     transform: scale(1.5);
                     transition: opacity 300ms, transform 300ms;
@@ -174,10 +175,13 @@
         #progress{
             flex-shrink: 1;
 
-            width: 270px;
-            height: 10px;
+            position: absolute;
+            width: 10px;
+            height: 100%;
+            right: -30px;
+
             border: honeydew 1px solid;
-            background-image: linear-gradient(-225deg, #a1c4fd 0%, #c2e9fb 20%, #f6d365 40%, #fda085 55%, #fcb69f 70%, #09268a 100%);
+            background-image: linear-gradient( 0deg, #a1c4fd 0%, #c2e9fb 20%, #f6d365 40%, #fda085 55%, #fcb69f 70%, #09268a 100%);
 
             div {
                 width: 100%;
@@ -186,7 +190,7 @@
             }
 
             div.playing {
-                transform: scaleX(0);
+                transform: scaleY(0);
                 transform-origin: top right;
                 transition: transform calc(var(--duration)*1s) linear;
             }
@@ -236,7 +240,7 @@
 <body>
 <!-- https://www.youtube.com/watch?v=QuoVDPM76wI 사과게임 만들기 참고 -->
 
-    <h1> <i id="cloud-icon">☁️</i> Cloud Game <button id="instructionBtn" style="border: none">❓</button></h1>
+    <h1> <img src="/img/cloud.svg" id="cloud-icon" class="i" alt="cloud"/> Cloud Game <button id="instructionBtn" style="border: none">❓</button></h1>
     <div id="instruction" style="display: none;">
         <p>구름을 드래그해서 화면에서 제거하세요.</p>
         <ul>
@@ -250,9 +254,9 @@
     </div>
     <div id="board">
         <h3 id="finalScore"></h3>
-    </div>
-    <div id="progress">
-        <div></div>
+        <div id="progress">
+            <div></div>
+        </div>
     </div>
     <div id="scoreBoard">
         <div style="display: inline-block; margin: 0 20px">
@@ -330,8 +334,7 @@
                     $cloud.dataset.col = col.toString();
 
                     //기존 svg 노드를 이동시키지 않고 새로운 독립적인 노드를 복제해 냄
-                    // const $icon = document.importNode($appleIcon, true);
-                    const $icon = $cloudIcon.cloneNode(true);
+                    const $icon = document.importNode($cloudIcon, true);
                     $icon.removeAttribute('id');
 
                     const $number = document.createElement('span');
@@ -504,6 +507,12 @@
                 clearTimeout(timerId);
             }
             timerId = setTimeout(gameEnd, duration * 1000);
+
+            //보드위치로 스크롤이동
+            $board.scrollIntoView({
+                behavior: "smooth", // 부드럽게 스크롤
+                block: "start"       // 화면의 상단에 맞춤
+            });
             console.log("Cloud Game Start !", mode? "Hard Mode" : "Easy Mode");
         }
 
