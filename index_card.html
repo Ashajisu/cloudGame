@@ -565,7 +565,7 @@
 
         //선택란 지우기
         function clearSelection(){
-
+            clicking = false;
             begin = null;
             end = null;
             for(const $card of $board.querySelectorAll('.card.selected')){
