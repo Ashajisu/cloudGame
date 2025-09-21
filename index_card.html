@@ -14,7 +14,7 @@
             --color-cloud-icon-selectd: #a4cafb;
             --color-board-border: #703205;
             --color-board-bg: rgba(111, 172, 54, 0.68);
-            --color-cloud-number: #0e1440;
+            --color-cloud-number: #041508;
 
             --duration: 50;
             --num-rows: 4;
@@ -108,7 +108,7 @@
                     left: 25%;
 
                     font-weight: bold;
-                    font-size: calc(var(--font-size)/2);
+                    font-size: calc(var(--font-size)/1.8);
                     color: var(--color-cloud-number);
 
                     display: flex;
@@ -219,7 +219,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 400px;                /* 이모지 크기 */
+            font-size: 100px;                /* 이모지 크기 */
             z-index: -1;                     /* 뒤로 보내기 */
         }
         #start button {
@@ -248,19 +248,29 @@
 
     <h1>
         <svg id="icon-card" width="100" height="100" viewBox="0 0 100 100">
-            <path fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-width="1" opacity="0.9372549019607843" d="M 18.5 4 L 81.5 4 L 85 6.5 L 86 8.5 L 86 91.5 L 83.5 95 L 81.5 96 L 18.5 96 L 15 93.5 L 14 91.5 L 14 8.5 L 16.5 5 L 18.5 4 Z M 20 8 L 18 10 L 18 91 L 20 92 L 81 92 L 82 91 L 82 10 L 81 8 L 20 8 Z " /><path fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-width="1" opacity="0.9372549019607843" d="M 31.5 13 L 35 15.5 L 38 20.5 L 32.5 27 L 29 24.5 L 26 19.5 L 31.5 13 Z " /><path fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-width="1" opacity="0.9372549019607843" d="M 67.5 13 L 71 15.5 L 74 20.5 L 68.5 27 L 65 24.5 L 62 19.5 L 67.5 13 Z " /><path fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-width="1" opacity="0.9372549019607843" d="M 31.5 43 L 35 45.5 L 38 50.5 L 32.5 57 L 29 54.5 L 26 49.5 L 31.5 43 Z " /><path fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-width="1" opacity="0.9372549019607843" d="M 67.5 43 L 71 45.5 L 74 50.5 L 68.5 57 L 65 54.5 L 62 49.5 L 67.5 43 Z " /><path fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-width="1" opacity="0.9372549019607843" d="M 31.5 73 L 35 75.5 L 38 80.5 L 32.5 87 L 29 84.5 L 26 79.5 L 31.5 73 Z " /><path fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-width="1" opacity="0.9372549019607843" d="M 67.5 73 L 71 75.5 L 74 80.5 L 68.5 87 L 65 84.5 L 62 79.5 L 67.5 73 Z " /><path fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-width="1" opacity="0" d="M 0 0 L 100 0 L 100 100 L 0 100 L 0 0 Z M 19 4 L 17 5 L 14 9 L 14 92 L 15 94 L 19 96 L 82 96 L 84 95 L 86 92 L 86 9 L 85 7 L 82 4 L 19 4 Z " /><path fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-width="1" opacity="0" d="M 19.5 8 L 80.5 8 L 82 9.5 L 82 90.5 L 80.5 92 L 19.5 92 L 18 90.5 L 18 9.5 L 19.5 8 Z M 32 13 L 26 20 L 29 25 L 33 27 L 38 21 L 35 16 L 32 13 Z M 68 13 L 62 20 L 65 25 L 69 27 L 74 21 L 71 16 L 68 13 Z M 32 43 L 26 50 L 29 55 L 33 57 L 38 51 L 35 46 L 32 43 Z M 68 43 L 62 50 L 65 55 L 69 57 L 74 51 L 71 46 L 68 43 Z M 32 73 L 26 80 L 29 85 L 33 87 L 38 81 L 35 76 L 32 73 Z M 68 73 L 62 80 L 65 85 L 69 87 L 74 81 L 71 76 L 68 73 Z " /></svg>
+            <path id="background" fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-width="1" opacity="0.9372549019607843" d="M 18.5 4 L 81.5 4 L 85 6.5 L 86 8.5 L 86 91.5 L 83.5 95 L 81.5 96 L 18.5 96 L 15 93.5 L 14 91.5 L 14 8.5 L 16.5 5 L 18.5 4 Z M 20 8 L 18 10 L 18 91 L 20 92 L 81 92 L 82 91 L 82 10 L 81 8 L 20 8 Z " />
+            <path class="dot" fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-width="1" opacity="0.9372549019607843" d="M 31.5 13 L 35 15.5 L 38 20.5 L 32.5 27 L 29 24.5 L 26 19.5 L 31.5 13 Z " />
+            <path class="dot" fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-width="1" opacity="0.9372549019607843" d="M 67.5 13 L 71 15.5 L 74 20.5 L 68.5 27 L 65 24.5 L 62 19.5 L 67.5 13 Z " />
+            <path class="dot"  fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-width="1" opacity="0.9372549019607843" d="M 31.5 43 L 35 45.5 L 38 50.5 L 32.5 57 L 29 54.5 L 26 49.5 L 31.5 43 Z " />
+            <path class="dot"  fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-width="1" opacity="0.9372549019607843" d="M 67.5 43 L 71 45.5 L 74 50.5 L 68.5 57 L 65 54.5 L 62 49.5 L 67.5 43 Z " />
+            <path class="dot"  fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-width="1" opacity="0.9372549019607843" d="M 31.5 73 L 35 75.5 L 38 80.5 L 32.5 87 L 29 84.5 L 26 79.5 L 31.5 73 Z " />
+            <path class="dot"  fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-width="1" opacity="0.9372549019607843" d="M 67.5 73 L 71 75.5 L 74 80.5 L 68.5 87 L 65 84.5 L 62 79.5 L 67.5 73 Z " />
+            <path fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-width="1" opacity="0" d="M 0 0 L 100 0 L 100 100 L 0 100 L 0 0 Z M 19 4 L 17 5 L 14 9 L 14 92 L 15 94 L 19 96 L 82 96 L 84 95 L 86 92 L 86 9 L 85 7 L 82 4 L 19 4 Z " />
+            <path id="inside" fill="rgb(0,0,0)" stroke="rgb(0,0,0)" stroke-width="1" opacity="0.5" d="M 19.5 8 L 80.5 8 L 82 9.5 L 82 90.5 L 80.5 92 L 19.5 92 L 18 90.5 L 18 9.5 L 19.5 8 Z M 32 13 L 26 20 L 29 25 L 33 27 L 38 21 L 35 16 L 32 13 Z M 68 13 L 62 20 L 65 25 L 69 27 L 74 21 L 71 16 L 68 13 Z M 32 43 L 26 50 L 29 55 L 33 57 L 38 51 L 35 46 L 32 43 Z M 68 43 L 62 50 L 65 55 L 69 57 L 74 51 L 71 46 L 68 43 Z M 32 73 L 26 80 L 29 85 L 33 87 L 38 81 L 35 76 L 32 73 Z M 68 73 L 62 80 L 65 85 L 69 87 L 74 81 L 71 76 L 68 73 Z " />
+        </svg>
         가나다라
         <button id="instructionBtn" style="border: none">❓</button>
     </h1>
     <div id="instruction" style="display: none;">
-        <p>구름을 드래그해서 화면에서 제거하세요.</p>
+        <p>같은 카드를 클릭해서 화면에서 제거하세요.</p>
         <ul>
             <li>START 버튼으로 게임을 시작합니다.</li>
             <li>다시하려면 RESTART 버튼을 클릭하세요.</li>
-            <li>선택한 구름의 합이 10이 되면 없어집니다.</li>
-            <li>타이머가 채워지는 2분 동안 최대한 많은 구름을 제거하세요.</li>
-            <li>구름을 제거하면 점수가 올라갑니다.</li>
-            <li>시간이 초과하거나 구름을 모두 제거하면 게임이 종료되고 점수가 공개됩니다.</li>
+            <li>시작 전, 자음 / 모음의 카드를 선택할 수 있습니다.</li>
+            <li>선택한 두개의 카드가 같다면 없어집니다.</li>
+            <li>타이머가 채워지는 2분 동안 최대한 많은 카드를 제거하세요.</li>
+            <li>카드를 제거하면 점수가 올라갑니다.</li>
+            <li>시간이 초과하거나 카드를 모두 제거하면 게임이 종료되고 점수가 공개됩니다.</li>
         </ul>
     </div>
     <div id="board">
@@ -283,7 +293,7 @@
         </div>
     </div>
     <div id="start">
-        <span>☁️</span>
+        <span>♥️♠️♦️♣️</span>
         <button id="startBtn"> Start </button>
         <div id="difficulty">
             <label>
